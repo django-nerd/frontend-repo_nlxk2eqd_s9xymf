@@ -1,72 +1,40 @@
+import Hero from './components/Hero'
+import Overview from './components/Overview'
+import Layout from './components/Layout'
+import EntriesList from './components/EntriesList'
+import Projects from './components/Projects'
+import TimeForm from './components/TimeForm'
+import SettingsPage from './components/SettingsPage'
+import { Routes, Route } from 'react-router-dom'
+
+function Home() {
+  return (
+    <Layout>
+      <Hero />
+      <div className="max-w-5xl mx-auto px-6">
+        <Overview />
+        <section className="mt-10 space-y-6">
+          <h2 className="text-white text-2xl font-bold">Quick Log</h2>
+          <div className="bg-slate-900/80 border border-white/10 rounded-2xl p-5">
+            <TimeForm onCreated={() => { /* could refresh lists via events */ }} />
+          </div>
+          <h2 className="text-white text-2xl font-bold">Recent Entries</h2>
+          <EntriesList />
+        </section>
+      </div>
+    </Layout>
+  )
+}
+
 function App() {
   return (
-    <div className="min-h-screen bg-gradient-to-br from-slate-900 via-slate-800 to-slate-900">
-      {/* Subtle pattern overlay */}
-      <div className="absolute inset-0 bg-[radial-gradient(circle_at_50%_50%,rgba(59,130,246,0.05),transparent_50%)]"></div>
-
-      <div className="relative min-h-screen flex items-center justify-center p-8">
-        <div className="max-w-2xl w-full">
-          {/* Header with Flames icon */}
-          <div className="text-center mb-12">
-            <div className="inline-flex items-center justify-center mb-6">
-              <img
-                src="/flame-icon.svg"
-                alt="Flames"
-                className="w-24 h-24 drop-shadow-[0_0_25px_rgba(59,130,246,0.5)]"
-              />
-            </div>
-
-            <h1 className="text-5xl font-bold text-white mb-4 tracking-tight">
-              Flames Blue
-            </h1>
-
-            <p className="text-xl text-blue-200 mb-6">
-              Build applications through conversation
-            </p>
-          </div>
-
-          {/* Instructions */}
-          <div className="bg-slate-800/50 backdrop-blur-sm border border-blue-500/20 rounded-2xl p-8 shadow-xl mb-6">
-            <div className="flex items-start gap-4 mb-6">
-              <div className="flex-shrink-0 w-8 h-8 bg-blue-500 text-white rounded-lg flex items-center justify-center font-bold">
-                1
-              </div>
-              <div>
-                <h3 className="font-semibold text-white mb-1">Describe your idea</h3>
-                <p className="text-blue-200/80 text-sm">Use the chat panel on the left to tell the AI what you want to build</p>
-              </div>
-            </div>
-
-            <div className="flex items-start gap-4 mb-6">
-              <div className="flex-shrink-0 w-8 h-8 bg-blue-500 text-white rounded-lg flex items-center justify-center font-bold">
-                2
-              </div>
-              <div>
-                <h3 className="font-semibold text-white mb-1">Watch it build</h3>
-                <p className="text-blue-200/80 text-sm">Your app will appear in this preview as the AI generates the code</p>
-              </div>
-            </div>
-
-            <div className="flex items-start gap-4">
-              <div className="flex-shrink-0 w-8 h-8 bg-blue-500 text-white rounded-lg flex items-center justify-center font-bold">
-                3
-              </div>
-              <div>
-                <h3 className="font-semibold text-white mb-1">Refine and iterate</h3>
-                <p className="text-blue-200/80 text-sm">Continue the conversation to add features and make changes</p>
-              </div>
-            </div>
-          </div>
-
-          {/* Footer */}
-          <div className="text-center">
-            <p className="text-sm text-blue-300/60">
-              No coding required • Just describe what you want
-            </p>
-          </div>
-        </div>
-      </div>
-    </div>
+    <Routes>
+      <Route path="/" element={<Home />} />
+      <Route path="/projects" element={<Layout><div className="max-w-5xl mx-auto px-6 py-8 text-white space-y-6"><h2 className='text-2xl font-bold'>Projects & Clients</h2><Projects /></div></Layout>} />
+      <Route path="/log" element={<Layout><div className="max-w-3xl mx-auto px-6 py-8 text-white space-y-6"><h2 className='text-2xl font-bold'>Time Card</h2><TimeForm /></div></Layout>} />
+      <Route path="/timesheets" element={<Layout><div className="max-w-5xl mx-auto px-6 py-8 text-white space-y-6"><h2 className='text-2xl font-bold'>Time Sheets</h2><EntriesList /></div></Layout>} />
+      <Route path="/settings" element={<Layout><div className="max-w-3xl mx-auto px-6 py-8 text-white space-y-6"><h2 className='text-2xl font-bold'>Settings</h2><SettingsPage /></div></Layout>} />
+    </Routes>
   )
 }
 
